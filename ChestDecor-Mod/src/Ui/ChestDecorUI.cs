@@ -107,12 +107,16 @@ namespace ChestDecor
                 decor.BeginEdit();
                 IsOpen = true;
 
-                _view = new DecorWindowView(T, ChestName(), Close, OnTab, pages, ModSettings.CameraOn);
-                if (pages[0]) ColorsPage.Open(decor, _view.Pages[0]);
-                if (pages[1]) AttachPage.Open(_view.Pages[1]);
-                if (pages[2]) PositionPage.Open(_view.Pages[2]);
-                // Core puts the window on its UI root, holds the one input lock and closes it on Escape (then calls OnWindowClosed)
-                _win = KydlCore.KyUi.Open(Plugin.ModGuid, WindowId, _view.Window, OnWindowClosed);
+                // Core builds the window AS ChestDecor (KydlCore D-086: the kit's "Ui: ..." lines get the [ChestDecor] tag and follow ChestDecor's
+                // debug switch), puts it on its UI root, holds the one input lock and closes it on Escape (then calls OnWindowClosed)
+                _win = KydlCore.KyUi.Open(Plugin.ModGuid, WindowId, () =>
+                {
+                    _view = new DecorWindowView(T, ChestName(), Close, OnTab, pages, ModSettings.CameraOn);
+                    if (pages[0]) ColorsPage.Open(decor, _view.Pages[0]);
+                    if (pages[1]) AttachPage.Open(_view.Pages[1]);
+                    if (pages[2]) PositionPage.Open(_view.Pages[2]);
+                    return _view.Window;
+                }, OnWindowClosed);
                 if (_win == null) throw new InvalidOperationException("KyUi.Open refused the window");
                 FreeCamera.Begin();
                 ModLog.Verbose("ChestDecorUI: window opened for '" + decor.name + "' (" + decor.Slots.Count + " colour part(s), " + SavedAtt.Count + " attachment(s))");
