@@ -4,7 +4,7 @@ using System.Reflection;
 using BepInEx;
 using HarmonyLib;
 using Jotunn.Utils;
-using Kydl.Common;
+using KydlCore.Common;
 using UnityEngine;
 using ChestDecor.Bootstrap;
 using ChestDecor.Ui;
@@ -17,7 +17,7 @@ namespace ChestDecor
     /// </summary>
     [BepInPlugin(ModGuid, ModName, ModVersion)]
     [BepInDependency(Jotunn.Main.ModGuid)]
-    [BepInDependency(KydlCore.Plugin.ModGuid, "0.1.0")]     // the UI (hub, windows, input lock) and the KY-Items registry (manifest: KydlDev-KydlCore-0.1.0, same version)
+    [BepInDependency(KydlCore.Bootstrap.Plugin.ModGuid, "0.1.0")]     // the UI (hub, windows, input lock) and the KY-Items registry (manifest: KydlDev-KydlCore-0.1.0, same version)
     // Purely cosmetic: players without the mod can still join (they see the normal chest); when both sides have it the version must match.
     [NetworkCompatibility(CompatibilityLevel.VersionCheckOnly, VersionStrictness.Patch)]
     public class Plugin : BaseUnityPlugin
@@ -39,7 +39,7 @@ namespace ChestDecor
             ModLog.Init(Logger, ModName, () => ModSettings.DebugLog != null && ModSettings.DebugLog.Value);
             ModLog.Info(ModName + " " + ModVersion + " loaded (dll built " + File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location).ToString("yyyy-MM-dd HH:mm:ss") + ")");
 
-            // The UI kit (Kydl.Ui), its log sinks, the one UI root and the input lock belong to KydlCore (2.0.0): nothing is set up here.
+            // The UI kit (KydlCore.Ui), its log sinks, the one UI root and the input lock belong to KydlCore (2.0.0): nothing is set up here.
             ModSettings.Bind(Config);
             _cfgWatcher = new ConfigReloader(Config);
             Loc.Register(UiText.En);

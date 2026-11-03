@@ -1,4 +1,4 @@
-using Kydl.Common;
+using KydlCore.Common;
 
 namespace ChestDecor.Testing
 {
@@ -21,15 +21,15 @@ namespace ChestDecor.Testing
         /// KydlCore (hard dependency, 2.0.0) is loaded: it owns the KY hub (F6) with this mod's settings page, the one UI root and the input lock.
         static string Startup_CoreLoaded()
         {
-            bool loaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(KydlCore.Plugin.ModGuid);
+            bool loaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(KydlCore.Bootstrap.Plugin.ModGuid);
             ModLog.Verbose("InGameTests: Startup_CoreLoaded " + loaded);
-            return loaded ? "PASS: " + KydlCore.Plugin.ModGuid + " is loaded" : "FAIL: " + KydlCore.Plugin.ModGuid + " is not loaded (this mod requires it)";
+            return loaded ? "PASS: " + KydlCore.Bootstrap.Plugin.ModGuid + " is loaded" : "FAIL: " + KydlCore.Bootstrap.Plugin.ModGuid + " is not loaded (this mod requires it)";
         }
 
         /// The UI Toolkit panel of Core's UI root can be made (the decorate window is opened on it through KyUi).
         static string Startup_UiPanel()
         {
-            return KydlCore.KyUi.Root != null ? "PASS: Core's UI Toolkit root ready" : "FAIL: KyUi.Root is null - the decorate window cannot open";
+            return KydlCore.Features.Hub.Contracts.KyUi.Root != null ? "PASS: Core's UI Toolkit root ready" : "FAIL: KyUi.Root is null - the decorate window cannot open";
         }
 
         /// The attachment list builds in a loaded world and is not empty; reports the KY-Items count (0 is fine without other KydlDev mods).

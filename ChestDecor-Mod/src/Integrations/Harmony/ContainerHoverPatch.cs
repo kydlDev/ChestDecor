@@ -1,7 +1,7 @@
 using System;
 using BepInEx.Configuration;
 using HarmonyLib;
-using Kydl.Common;
+using KydlCore.Common;
 using UnityEngine;
 
 namespace ChestDecor

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Kydl.Common;
+using KydlCore.Common;
 using UnityEngine;
 
 namespace ChestDecor

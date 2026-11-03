@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Kydl.Ui;
+using KydlCore.Ui;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace ChestDecor.Ui
 {
     /// <summary>
-    /// The decorate window (shared Kydl.Ui look): title, the chest's name, a tab bar (Colours / Attach items / Position items) under the title,
+    /// The decorate window (shared KydlCore.Ui look): title, the chest's name, a tab bar (Colours / Attach items / Position items) under the title,
     /// and one scrolled body that holds the three pages (only the chosen one is shown). Compiled into the mod AND shown by the Unity preview:
     /// no game types here; the game side (ChestDecorUI) passes text and callbacks in.
     /// </summary>

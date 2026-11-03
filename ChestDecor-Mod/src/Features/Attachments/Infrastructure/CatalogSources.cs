@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using Kydl.Common;
+using KydlCore.Common;
 using UnityEngine;
 using static ChestDecor.AttachCatalog;
 using static ChestDecor.CatalogSources;

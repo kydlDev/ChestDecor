@@ -4,7 +4,7 @@ namespace ChestDecor.Ui
 {
     /// <summary>
     /// Player-facing text of the decorate window, English only (user rule: no other languages). Shared by the game (registered with Jotunn in
-    /// Plugin.Awake through Kydl.Common.Loc) and the Unity preview (English). Every key starts with "chestdecor_" so it never clashes with another mod.
+    /// Plugin.Awake through KydlCore.Common.Loc) and the Unity preview (English). Every key starts with "chestdecor_" so it never clashes with another mod.
     /// {0} {1} are filled in by the caller.
     /// </summary>
     internal static class UiText

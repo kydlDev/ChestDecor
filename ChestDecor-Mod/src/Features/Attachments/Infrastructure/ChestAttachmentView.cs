@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Kydl.Common;
+using KydlCore.Common;
 using UnityEngine;
 
 namespace ChestDecor
@@ -206,7 +206,7 @@ namespace ChestDecor
             var extent = ExtentOf(attachment);
             var resting = new Vector3(chest.center.x + spread, chest.max.y - extent.min.y, chest.center.z);
             attachment.Position = PlacementLimits.Clamp(resting, chest);
-            Kydl.Common.ModLog.Verbose("ChestAttachmentView: default spot for '" + prefab + "' at " + attachment.Position.ToString("F3") + ", size " + scale.ToString("0.00") +
+            KydlCore.Common.ModLog.Verbose("ChestAttachmentView: default spot for '" + prefab + "' at " + attachment.Position.ToString("F3") + ", size " + scale.ToString("0.00") +
                                        (attachment.Position == resting ? "" : " (lowered from " + resting.ToString("F3") + " by the placement limit)"));
             return attachment;
         }

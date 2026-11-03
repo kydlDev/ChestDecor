@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Reflection;
 using BepInEx.Configuration;
-using Kydl.Common;
+using KydlCore.Common;
 
 namespace ChestDecor
 {

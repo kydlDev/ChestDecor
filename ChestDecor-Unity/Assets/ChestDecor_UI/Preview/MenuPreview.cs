@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Kydl.Ui;
+using KydlCore.Ui;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -14,7 +14,7 @@ namespace ChestDecor.Ui
     /// </summary>
     public sealed class MenuPreview : MonoBehaviour, IColorsActions, IAttachActions, IPositionActions
     {
-        const string FontFolder = "Assets/Kydl.Ui/Preview/GameAssets/";
+        const string FontFolder = "Assets/KydlCore.Ui/Preview/GameAssets/";
         [Range(0, 2)] public int startTab;
         [Tooltip("Show the KY-Items filter (in game: only when one of the user's mods with items is loaded)")] public bool kyItems = true;
 

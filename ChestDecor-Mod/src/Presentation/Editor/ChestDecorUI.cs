@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using ChestDecor.Ui;
-using Kydl.Common;
-using Kydl.Ui;
+using KydlCore.Common;
+using KydlCore.Ui;
 using UnityEngine;
 using UnityEngine.UIElements;
+using KydlCore.Features.Hub.Contracts;
 
 namespace ChestDecor
 {
@@ -19,7 +20,7 @@ namespace ChestDecor
         const string WindowId = "editor";          // KyUi window id (Core builds guid + ":" + id); the input lock and Escape belong to Core
 
         static DecorWindowView _view;
-        static KydlCore.KyWindow _win;             // the window as Core knows it (null while closed)
+        static KydlCore.Features.Hub.Contracts.KyWindow _win;             // the window as Core knows it (null while closed)
         static ChestDecorator _decor;
         static int _closedFrame = -100;
         static float _nextBeat, _nextDistanceLog;
@@ -84,7 +85,7 @@ namespace ChestDecor
         public static void Open(ChestDecorator decor)
         {
             if (IsOpen) Close();
-            if (KydlCore.KyUi.Root == null) { Toast("Chest Decor: UI is not available yet."); ModLog.Warn("ChestDecorUI: the Core UI root is missing - window not opened"); return; }
+            if (KydlCore.Features.Hub.Contracts.KyUi.Root == null) { Toast("Chest Decor: UI is not available yet."); ModLog.Warn("ChestDecorUI: the Core UI root is missing - window not opened"); return; }
             var pages = Functions.Pages(ModSettings.ColoursOn, ModSettings.AttachmentsOn);     // a switched-off functionality has no page (PROJECT_RULES 11)
             if (Functions.FirstPage(pages) < 0) { Toast("Chest Decor: colours and attachments are both switched off in the settings."); ModLog.Verbose("ChestDecorUI: no page is on ([Colours] / [Attachments] Enable off) - window not opened"); return; }
 
@@ -109,7 +110,7 @@ namespace ChestDecor
 
                 // Core builds the window AS ChestDecor (KydlCore D-086: the kit's "Ui: ..." lines get the [ChestDecor] tag and follow ChestDecor's
                 // debug switch), puts it on its UI root, holds the one input lock and closes it on Escape (then calls OnWindowClosed)
-                _win = KydlCore.KyUi.Open(Plugin.ModGuid, WindowId, () =>
+                _win = KydlCore.Features.Hub.Contracts.KyUi.Open(Plugin.ModGuid, WindowId, () =>
                 {
                     _view = new DecorWindowView(T, ChestName(), Close, OnTab, pages, ModSettings.CameraOn);
                     if (pages[0]) ColorsPage.Open(decor, _view.Pages[0]);
@@ -172,7 +173,7 @@ namespace ChestDecor
             catch (Exception e) { ModLog.Warn("Clearing the pages failed: " + e.Message); }
             SavedAtt = new List<ChestAttachment>();
             WorkAtt = new List<ChestAttachment>();
-            ModLog.Verbose("ChestDecorUI: window closed, chest " + (decor != null ? "'" + decor.name + "' released" : "(none)") + ", Core windows still open: " + KydlCore.KyUi.AnyOpen);
+            ModLog.Verbose("ChestDecorUI: window closed, chest " + (decor != null ? "'" + decor.name + "' released" : "(none)") + ", Core windows still open: " + KydlCore.Features.Hub.Contracts.KyUi.AnyOpen);
         }
 
         /// Every frame while the window is open (DecorOpener.Tick).

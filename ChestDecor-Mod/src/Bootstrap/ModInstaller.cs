@@ -4,9 +4,8 @@ using ChestDecor.Features.Camera.Infrastructure;
 using ChestDecor.Features.Colours.Infrastructure;
 using ChestDecor.Features.Decoration.Infrastructure;
 using ChestDecor.Presentation.Hub.Registration;
-using Kydl.Common;
-using Kydl.Core.Features;
-using Kydl.Core.Results;
+using KydlCore.Common;
+using KydlCore.Core;
 
 namespace ChestDecor.Bootstrap
 {

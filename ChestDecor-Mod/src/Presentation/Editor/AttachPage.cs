@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ChestDecor.Ui;
-using Kydl.Common;
+using KydlCore.Common;
 using UnityEngine;
 using UnityEngine.UIElements;
 

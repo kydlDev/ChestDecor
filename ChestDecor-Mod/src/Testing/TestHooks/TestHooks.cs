@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Kydl.Common;
+using KydlCore.Common;
 using UnityEngine;
 
 namespace ChestDecor.Testing
@@ -128,7 +128,7 @@ namespace ChestDecor.Testing
 
         /// <summary>The editor window is open (KyUi window of the mod).</summary>
         [TestHook("chestdecor.editorOpen")]
-        static bool EditorOpen() { return KydlCore.KyUi.IsOpen(Plugin.ModGuid, "editor"); }
+        static bool EditorOpen() { return KydlCore.Features.Hub.Contracts.KyUi.IsOpen(Plugin.ModGuid, "editor"); }
 
         /// <summary>Opens the editor window for the chest through ChestDecorUI.Open (what the decorate key does after it has found the chest under the crosshair).</summary>
         [TestHook("chestdecor.openEditor")]
@@ -142,7 +142,7 @@ namespace ChestDecor.Testing
         }
 
         [TestHook("chestdecor.closeEditor")]
-        static bool CloseEditor() { ChestDecorUI.Close(); return KydlCore.KyUi.AnyOpen; }
+        static bool CloseEditor() { ChestDecorUI.Close(); return KydlCore.Features.Hub.Contracts.KyUi.AnyOpen; }
 
         [TestHook("chestdecor.unlock")]
         static bool Unlock(GameObject chest) { Of(chest).Unlock(); return !Of(chest).HoldsLock(); }
