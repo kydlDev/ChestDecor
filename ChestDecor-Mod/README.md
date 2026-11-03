@@ -292,4 +292,4 @@ is what stops two players from removing (and being refunded for) the same attach
 Colours (and each part's mode) and attachments are stored in the chest's ZDO (keys `ChestDecor_Colors` and
 `ChestDecor_Attach`), so they save and sync automatically. The editor lock uses `ChestDecor_EditorId`, `ChestDecor_EditorName`
 and `ChestDecor_EditorBeat`. Players without the mod can't open the window, so they can't edit (or hold) a chest.
-The mod is cosmetic only (`NetworkCompatibility: NotEnforced`): players without it can join and just see normal chests.
+The mod is cosmetic only (`NetworkCompatibility: VersionCheckOnly`, patch-strict): players without it can join and just see normal chests; when both the server and a player have it, the versions must match exactly.

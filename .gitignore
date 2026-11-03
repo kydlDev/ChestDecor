@@ -93,3 +93,11 @@ CLAUDE.md
 /model.png
 /model-nobg.png
 *.dll
+
+# --- spec layout: local docs, NuGet cache and quality output under the mod folder ---
+/*-Mod/docs/
+/*-Mod/tests/.nuget/
+/*-Mod/tests/_quality/
+/*-Mod/tests/**/obj/
+/*-Mod/tests/**/bin/
+/*-Mod/tests/**/TestResults/

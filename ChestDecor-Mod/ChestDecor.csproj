@@ -15,7 +15,15 @@
     <BundleName>chestdecor</BundleName>
     <!-- 2.0.0: the UI kit, the input lock, the KY hub and the KY-Items registry come from KydlCore.dll (a hard dependency), not from a copy in this DLL -->
     <KydlUseCore>true</KydlUseCore>
+    <!-- spec layout (MIGRATION_DECISIONS A8): the DLL goes to assets\ only, no build\ folder -->
+    <KydlBuildFolder>false</KydlBuildFolder>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="tests\**;docs\**;release\**" />
+    <None Remove="tests\**;docs\**;release\**" />
+    <EmbeddedResource Remove="tests\**;docs\**;release\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <!-- the mod's menu views live in the Unity project (previewed there) and are compiled into the mod from there -->

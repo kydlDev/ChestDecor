@@ -1,0 +1,13 @@
+{
+  "name": "editor-look",
+  "description": "The chest editor window: the real K hotkey, hover hint, colour picker, attach list, free camera and how it feels",
+  "manualOnly": true,
+  "timeout": 600,
+  "steps": [
+    { "do": "hook", "name": "chestdecor.arena", "contains": "arena at", "label": "start on the arena spot" },
+    { "do": "checkpoint", "message": "Build a chest, look at it: is the '[K] Decorate chest' hint shown? Press K: does the editor open, and does Esc close it without the pause menu?" },
+    { "do": "checkpoint", "message": "Colours tab: pick a colour, parts update live? Attach items tab: add 2 items, move / rotate / resize them. Is the free camera (orbit, zoom) comfortable?" },
+    { "do": "checkpoint", "message": "Remove an attachment: are the paid materials refunded? Relog: is everything still there?" }
+  ],
+  "asserts": [ { "check": "noErrors", "source": "ChestDecor" } ]
+}

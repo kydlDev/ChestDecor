@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Integration tests: package files (Hexium rules), version consistency, settings layout of the built DLL. No game running. -->
+  <PropertyGroup>
+    <AssemblyName>ChestDecor.IntegrationTests</AssemblyName>
+    <RootNamespace>ChestDecor.Tests.Integration</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(ValheimRefs)\UnityEngine.CoreModule.dll</HintPath><Private>true</Private></Reference>
+    <!-- PatchTargetsTests: reads the mod and the game DLLs with Mono.Cecil (metadata only) -->
+    <Reference Include="Mono.Cecil"><HintPath>$(ValheimRefs)\Mono.Cecil.dll</HintPath><Private>true</Private></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\src\Features\*\Domain\**\*.cs" Link="Mod\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\..\src\Features\*\Application\**\*.cs" Link="Mod\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\..\src\Features\*\Execution\**\*.cs" Link="Mod\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

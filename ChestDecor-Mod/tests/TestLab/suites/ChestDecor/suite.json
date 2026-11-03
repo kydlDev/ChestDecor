@@ -1,0 +1,161 @@
+{
+    "name":  "ChestDecor",
+    "description":  "ChestDecor 2.0.0 (KydlDev spec port): features run, hub tab, decorator, colours, attachments, edit lock, relog, ownership, editor window",
+    "requireMods":  [
+                        {
+                            "guid":  "com.kydldev.chestdecor",
+                            "minVersion":  "2.0.0"
+                        },
+                        {
+                            "guid":  "com.kydldev.KydlCore",
+                            "minVersion":  "0.1.0"
+                        }
+                    ],
+    "configOverrides":  [
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "General",
+                                "key":  "EnableAll",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "General",
+                                "key":  "Customize Hotkey",
+                                "value":  "K"
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "General",
+                                "key":  "Require Chest Access",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "General",
+                                "key":  "Only Player Built Chests",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "General",
+                                "key":  "Show Hover Hint",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Colours",
+                                "key":  "Enable",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Colours",
+                                "key":  "Live Preview",
+                                "value":  false
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Colours",
+                                "key":  "Default Colour Mode",
+                                "value":  "Tint"
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Colours",
+                                "key":  "Split Texture Into Parts",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Attachments",
+                                "key":  "Enable",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Attachments",
+                                "key":  "Max Attachments Per Chest",
+                                "value":  5
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Attachments",
+                                "key":  "Free Attachments",
+                                "value":  false
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Attachments",
+                                "key":  "Require Known Recipe",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Attachments",
+                                "key":  "Refund On Remove",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Attachments",
+                                "key":  "Extra Decorative Prefabs",
+                                "value":  ""
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Attachments",
+                                "key":  "Include Tree Saplings",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Attachments",
+                                "key":  "Ignored Ingredients",
+                                "value":  "BattleIdol,ProtectionIdol"
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Camera",
+                                "key":  "Enable",
+                                "value":  true
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Camera",
+                                "key":  "Camera Max Distance",
+                                "value":  5
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Camera",
+                                "key":  "Camera Speed",
+                                "value":  3
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "Camera",
+                                "key":  "Camera Look Sensitivity",
+                                "value":  0.2
+                            },
+                            {
+                                "guid":  "com.kydldev.chestdecor",
+                                "section":  "DebugLog",
+                                "key":  "Enable",
+                                "value":  false
+                            }
+                        ],
+    "resetBetweenTests":  true,
+    "tests":  [
+                  "selftest",
+                  "features-running",
+                  "hub-page",
+                  "chest-gets-decorator",
+                  "colours-save-and-read",
+                  "attachments-save-and-read",
+                  "edit-lock",
+                  "decoration-survives-relog",
+                  "other-player-takes-ownership",
+                  "editor-window-opens"
+              ]
+}

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Unit tests: pure logic, no game running. The rules worth testing live in classes without Unity / Valheim types and are linked in below.
+       How good the tests are: _agent\tools\test-quality.ps1 (coverage + mutation score, E:\Projects\Valheim\Claude\testing\TEST_QUALITY.md). -->
+  <PropertyGroup>
+    <AssemblyName>ChestDecor.UnitTests</AssemblyName>
+    <RootNamespace>ChestDecor.Tests.Unit</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- the material split + cargo name rules (the game-facing code in Packer / CargoFactory calls these). In quality runs (KydlQuality=true) the types come from the mod project instead (InternalsVisibleTo), so Stryker sees these tests cover them. -->
+    <Compile Include="..\..\src\Features\*\Domain\**\*.cs" Link="Mod\%(RecursiveDir)%(Filename)%(Extension)" Condition="'$(KydlQuality)' != 'true'" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(ValheimRefs)\UnityEngine.CoreModule.dll</HintPath><Private>true</Private></Reference>
+  </ItemGroup>
+</Project>

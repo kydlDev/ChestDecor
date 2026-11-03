@@ -1,0 +1,13 @@
+{
+  "name": "features-running",
+  "description": "All four features (decoration, colours, attachments, camera) are running in the FeatureRegistry with the suite config",
+  "timeout": 60,
+  "steps": [
+    { "do": "hook", "name": "chestdecor.arena", "contains": "arena at" },
+    { "do": "hook", "name": "chestdecor.featureRunning", "args": { "id": "decoration" }, "expect": true },
+    { "do": "hook", "name": "chestdecor.featureRunning", "args": { "id": "colours" }, "expect": true },
+    { "do": "hook", "name": "chestdecor.featureRunning", "args": { "id": "attachments" }, "expect": true },
+    { "do": "hook", "name": "chestdecor.featureRunning", "args": { "id": "camera" }, "expect": true }
+  ],
+  "asserts": [ { "check": "noErrors", "source": "ChestDecor" } ]
+}
