@@ -89,10 +89,13 @@ public class ChestAttachmentTests
     {
         var a = Parse("TrophyBoar|0.1|0.2|0.3|0|90|0|1").Single();
 
-        Assert.That(a.Prefab, Is.EqualTo("TrophyBoar"));
-        Assert.That(a.Pos, Is.EqualTo(new Vector3(0.1f, 0.2f, 0.3f)));
-        Assert.That(a.Paid, Is.True);
-        Assert.That(a.Cost, Is.Null, "no cost field = not recorded (refunded from the catalog)");
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(a.Prefab, Is.EqualTo("TrophyBoar"));
+            Assert.That(a.Pos, Is.EqualTo(new Vector3(0.1f, 0.2f, 0.3f)));
+            Assert.That(a.Paid, Is.True);
+            Assert.That(a.Cost, Is.Null, "no cost field = not recorded (refunded from the catalog)");
+        }
     }
 
     [Test]
@@ -100,8 +103,11 @@ public class ChestAttachmentTests
     {
         var a = Parse("Sword|0|0|0|0|0|0|1|0|").Single();
 
-        Assert.That(a.Paid, Is.False);
-        Assert.That(a.Cost, Is.Not.Null.And.Empty, "an empty cost field = paid nothing, not 'not recorded'");
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(a.Paid, Is.False);
+            Assert.That(a.Cost, Is.Not.Null.And.Empty, "an empty cost field = paid nothing, not 'not recorded'");
+        }
     }
 
     [Test]
@@ -169,8 +175,11 @@ public class ChestAttachmentTests
     {
         var fresh = FromMod(Activator.CreateInstance(AType));
 
-        Assert.That(fresh.Paid, Is.True, "documented: only a free attach sets Paid = false");
-        Assert.That(fresh.Scale, Is.EqualTo(1f));
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(fresh.Paid, Is.True, "documented: only a free attach sets Paid = false");
+            Assert.That(fresh.Scale, Is.EqualTo(1f));
+        }
     }
 
     [Test]
@@ -192,8 +201,11 @@ public class ChestAttachmentTests
     [Test]
     public void Serialize_NullOrEmptyList_IsEmptyText()
     {
-        Assert.That((string)ModAssembly.Call(T, "Serialize", new object[] { null }), Is.Empty);
-        Assert.That(Serialize(new Att[0]), Is.Empty);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That((string)ModAssembly.Call(T, "Serialize", new object[] { null }), Is.Empty);
+            Assert.That(Serialize(new Att[0]), Is.Empty);
+        }
     }
 
     [Test]
@@ -220,8 +232,11 @@ public class ChestAttachmentTests
         copy.Invoke(target, new[] { source });
         ((IList)AType.GetField("Cost").GetValue(source)).Clear();
         var t = FromMod(target);
-        Assert.That(t.Paid, Is.False);
-        Assert.That(t.Cost.Select(c => c.Key + "=" + c.Value), Is.EqualTo(new[] { "Wood=4" }), "its own copy of the list");
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(t.Paid, Is.False);
+            Assert.That(t.Cost.Select(c => c.Key + "=" + c.Value), Is.EqualTo(new[] { "Wood=4" }), "its own copy of the list");
+        }
     }
 
     [Test]
@@ -252,8 +267,11 @@ public class ChestAttachmentTests
         var b = ModList(new[] { new Att { Prefab = "A", Pos = new Vector3(1, 2, 3.00001f) } });   // below the 4 stored decimals
         var c = ModList(new[] { new Att { Prefab = "A", Pos = new Vector3(1, 2, 3.1f) } });
 
-        Assert.That((bool)ModAssembly.Call(T, "Same", a, b), Is.True);
-        Assert.That((bool)ModAssembly.Call(T, "Same", a, c), Is.False);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That((bool)ModAssembly.Call(T, "Same", a, b), Is.True);
+            Assert.That((bool)ModAssembly.Call(T, "Same", a, c), Is.False);
+        }
     }
 
     // ---- properties ------------------------------------------------------------------------------------------------------

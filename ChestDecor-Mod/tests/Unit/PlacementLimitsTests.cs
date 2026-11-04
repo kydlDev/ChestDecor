@@ -67,8 +67,11 @@ public class PlacementLimitsTests
     {
         var chest = new Bounds(new Vector3(0, 0.5f, 0), new Vector3(1.84f, 1.09f, 0.97f));    // the chest of the in-game test
 
-        Assert.That(High(chest, 1), Is.EqualTo(chest.max.y + 0.1f).Within(Tol), "a standing spear's middle at most 10 cm above the lid");
-        Assert.That(Low(chest, 0), Is.EqualTo(chest.min.x - 0.1f).Within(Tol));
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(High(chest, 1), Is.EqualTo(chest.max.y + 0.1f).Within(Tol), "a standing spear's middle at most 10 cm above the lid");
+            Assert.That(Low(chest, 0), Is.EqualTo(chest.min.x - 0.1f).Within(Tol));
+        }
     }
 
     [Test]
@@ -76,8 +79,11 @@ public class PlacementLimitsTests
     {
         var chest = new Bounds(Vector3.zero, Vector3.one);
 
-        Assert.That(TooDeep(Vector3.zero, chest), Is.True);
-        Assert.That(TooDeep(new Vector3(0.4f, 0, 0), chest), Is.False, "within 10 cm of the +x side");
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(TooDeep(Vector3.zero, chest), Is.True);
+            Assert.That(TooDeep(new Vector3(0.4f, 0, 0), chest), Is.False, "within 10 cm of the +x side");
+        }
     }
 
     [Test]
@@ -93,9 +99,12 @@ public class PlacementLimitsTests
         float eps = 0.0005f;
         float atLow = chest.min.x + Margin + eps, atHigh = chest.max.x - Margin - eps;
 
-        Assert.That(TooDeep(new Vector3(atLow, 0, 0), chest), Is.False, "on the limit counts as 'within 10 cm of the side'");
-        Assert.That(TooDeep(new Vector3(atHigh, 0, 0), chest), Is.False);
-        Assert.That(TooDeep(new Vector3(atLow + 0.001f, 0, 0), chest), Is.True);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(TooDeep(new Vector3(atLow, 0, 0), chest), Is.False, "on the limit counts as 'within 10 cm of the side'");
+            Assert.That(TooDeep(new Vector3(atHigh, 0, 0), chest), Is.False);
+            Assert.That(TooDeep(new Vector3(atLow + 0.001f, 0, 0), chest), Is.True);
+        }
     }
 
     [Test]
@@ -116,8 +125,11 @@ public class PlacementLimitsTests
         var chest = new Bounds(Vector3.zero, Vector3.one);
         float lo = chest.min.x + Margin, hi = chest.max.x - Margin;
 
-        Assert.That(Clamp(new Vector3(0.3f, 0, 0), chest, 0, new Vector3(lo, 0, 0)).x, Is.EqualTo(lo), "came from the low limit: stays there");
-        Assert.That(Clamp(new Vector3(-0.3f, 0, 0), chest, 0, new Vector3(hi, 0, 0)).x, Is.EqualTo(hi));
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(Clamp(new Vector3(0.3f, 0, 0), chest, 0, new Vector3(lo, 0, 0)).x, Is.EqualTo(lo), "came from the low limit: stays there");
+            Assert.That(Clamp(new Vector3(-0.3f, 0, 0), chest, 0, new Vector3(hi, 0, 0)).x, Is.EqualTo(hi));
+        }
     }
 
     /// The in-game spear (CD-08, 2026-10-26): before, its slider reached 0.99 m above a 1.09 m chest because the limit used its edges.
@@ -136,10 +148,13 @@ public class PlacementLimitsTests
     {
         var chest = new Bounds(Vector3.zero, Vector3.one);
 
-        Assert.That(Allowed(new Vector3(0, 0.55f, 0), chest), Is.True, "5 cm above the lid");
-        Assert.That(Allowed(new Vector3(0, 0.45f, 0), chest), Is.True, "5 cm into the lid");
-        Assert.That(Allowed(new Vector3(0, 0.65f, 0), chest), Is.False, "15 cm above");
-        Assert.That(Allowed(new Vector3(0, 0.3f, 0), chest), Is.False, "20 cm deep");
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(Allowed(new Vector3(0, 0.55f, 0), chest), Is.True, "5 cm above the lid");
+            Assert.That(Allowed(new Vector3(0, 0.45f, 0), chest), Is.True, "5 cm into the lid");
+            Assert.That(Allowed(new Vector3(0, 0.65f, 0), chest), Is.False, "15 cm above");
+            Assert.That(Allowed(new Vector3(0, 0.3f, 0), chest), Is.False, "20 cm deep");
+        }
     }
 
     // ---- properties ----------------------------------------------------------------------------------------------------------

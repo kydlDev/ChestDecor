@@ -50,11 +50,14 @@ public class ConfigMigrationTests
         var live = Bind(cfg, "Colours", "Live Preview", false);
         var cam = Bind(cfg, "Camera", "Enable", true);
 
-        Assert.That(Move(cfg, "General", "Live Preview", live), Is.True);
-        Assert.That(Move(cfg, "Camera", "Free Camera", cam), Is.True);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(Move(cfg, "General", "Live Preview", live), Is.True);
+            Assert.That(Move(cfg, "Camera", "Free Camera", cam), Is.True);
 
-        Assert.That(Value(live), Is.EqualTo(true), "Live Preview was on, it stays on in [Colours]");
-        Assert.That(Value(cam), Is.EqualTo(false), "Free Camera was off, [Camera] Enable is off");
+            Assert.That(Value(live), Is.EqualTo(true), "Live Preview was on, it stays on in [Colours]");
+            Assert.That(Value(cam), Is.EqualTo(false), "Free Camera was off, [Camera] Enable is off");
+        }
     }
 
     [Test]
@@ -63,8 +66,11 @@ public class ConfigMigrationTests
         var cfg = NewConfig("[General]\n\nShow Hover Hint = true\n");
         var live = Bind(cfg, "Colours", "Live Preview", false);
 
-        Assert.That(Move(cfg, "General", "Live Preview", live), Is.False);
-        Assert.That(Value(live), Is.EqualTo(false));
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(Move(cfg, "General", "Live Preview", live), Is.False);
+            Assert.That(Value(live), Is.EqualTo(false));
+        }
     }
 
     [Test]
@@ -73,7 +79,10 @@ public class ConfigMigrationTests
         var cfg = NewConfig("[General]\n\nLive Preview = true\n\n[Colours]\n\nLive Preview = false\n\n[Colours2]\n\nX = 1\n");
         var live = Bind(cfg, "Colours", "Live Preview", true);      // default true, the file says false: the player already set the new entry
 
-        Assert.That(Move(cfg, "General", "Live Preview", live), Is.False);
-        Assert.That(Value(live), Is.EqualTo(false));
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(Move(cfg, "General", "Live Preview", live), Is.False);
+            Assert.That(Value(live), Is.EqualTo(false));
+        }
     }
 }
