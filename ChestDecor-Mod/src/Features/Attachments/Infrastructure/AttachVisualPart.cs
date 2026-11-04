@@ -1,11 +1,10 @@
 using UnityEngine;
 
-namespace ChestDecor
+namespace ChestDecor;
+
+internal sealed class AttachVisualPart
 {
-    internal sealed class AttachVisualPart
-    {
-        public Mesh Mesh;
-        public Material[] Materials;
-        public Matrix4x4 Local; // relative to the prefab root
-    }
+    public Mesh Mesh;
+    public Material[] Materials;
+    public Matrix4x4 Local; // relative to the prefab root
 }

@@ -1,5 +1,5 @@
-using KydlCore.Common;
 using System.Collections.Generic;
+using KydlCore.Common;
 using UnityEngine;
 
 namespace ChestDecor;

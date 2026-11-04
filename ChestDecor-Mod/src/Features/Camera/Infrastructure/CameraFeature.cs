@@ -1,16 +1,15 @@
 using KydlCore.Common;
 using KydlCore.Core;
 
-namespace ChestDecor.Features.Camera.Infrastructure
+namespace ChestDecor.Features.Camera.Infrastructure;
+
+/// <summary>Free camera while the editor is open. Gate: ModSettings.On && ModSettings.FreeCameraEnabled.Value.</summary>
+internal sealed class CameraFeature : IFeature
 {
-    /// <summary>Free camera while the editor is open. Gate: ModSettings.On && ModSettings.FreeCameraEnabled.Value.</summary>
-    internal sealed class CameraFeature : IFeature
-    {
-        internal const string FeatureId = "camera";
-        internal static bool Running { get; private set; }
-        public string Id { get { return FeatureId; } }
-        public bool IsEnabled() { return ModSettings.On && ModSettings.FreeCameraEnabled.Value; }
-        public bool Start() { Running = true; ModLog.Verbose("CameraFeature: started"); return Running; }
-        public bool Stop() { Running = false; ModLog.Verbose("CameraFeature: stopped"); return !Running; }
-    }
+    internal const string FeatureId = "camera";
+    internal static bool Running { get; private set; }
+    public string Id { get { return FeatureId; } }
+    public bool IsEnabled() { return ModSettings.On && ModSettings.FreeCameraEnabled.Value; }
+    public bool Start() { Running = true; ModLog.Verbose("CameraFeature: started"); return Running; }
+    public bool Stop() { Running = false; ModLog.Verbose("CameraFeature: stopped"); return !Running; }
 }

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <!--
     ChestDecor mod. Everything shared by the user's mods (references from E:\Projects\Valheim\Claude\ref, net48, no debug symbols,
     the shared code Kydl.Common / Kydl.Ui, copy to Assets + build, embedded bundle) comes from Claude\shared\Kydl.Mod.props / .targets.
@@ -13,8 +13,6 @@
     <PackageId>ChestDecor</PackageId>
     <!-- AssetBundle built by the Unity project (Valheim > Build AssetBundles); embedded into the DLL when Assets\chestdecor exists -->
     <BundleName>chestdecor</BundleName>
-    <!-- 2.0.0: the UI kit, the input lock, the KY hub and the KY-Items registry come from KydlCore.dll (a hard dependency), not from a copy in this DLL -->
-    <KydlUseCore>true</KydlUseCore>
     <!-- spec layout (MIGRATION_DECISIONS A8): the DLL goes to assets\ only, no build\ folder -->
     <KydlBuildFolder>false</KydlBuildFolder>
   </PropertyGroup>

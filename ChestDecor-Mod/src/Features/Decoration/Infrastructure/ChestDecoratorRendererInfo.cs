@@ -1,11 +1,10 @@
 using UnityEngine;
 
-namespace ChestDecor
+namespace ChestDecor;
+
+internal sealed class ChestDecoratorRendererInfo
 {
-    internal sealed class ChestDecoratorRendererInfo
-    {
-        public Renderer Renderer;
-        public Material[] Original;
-        public string[] Keys; // null entry => not tintable
-    }
+    public Renderer Renderer;
+    public Material[] Original;
+    public string[] Keys; // null entry => not tintable
 }
