@@ -17,7 +17,7 @@ namespace ChestDecor;
 /// </summary>
 [BepInPlugin(ModGuid, ModName, ModVersion)]
 [BepInDependency(Jotunn.Main.ModGuid)]
-[BepInDependency(KydlCore.Bootstrap.Plugin.ModGuid, "0.1.0")]     // the UI (hub, windows, input lock) and the KY-Items registry (manifest: KydlDev-KydlCore-0.1.0, same version)
+[BepInDependency(KydlCore.Bootstrap.Plugin.ModGuid, "1.0.0")]     // the UI (hub, windows, input lock) and the KY-Items registry (manifest: KydlDev-KydlCore-1.0.0, same version)
 // Purely cosmetic: players without the mod can still join (they see the normal chest); when both sides have it the version must match.
 [NetworkCompatibility(CompatibilityLevel.VersionCheckOnly, VersionStrictness.Patch)]
 public class Plugin : BaseUnityPlugin

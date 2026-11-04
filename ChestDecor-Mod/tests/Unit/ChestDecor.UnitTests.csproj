@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- Unit tests: pure logic, no game running. The rules worth testing live in classes without Unity / Valheim types and are linked in below.
-       How good the tests are: _agent\tools\test-quality.ps1 (coverage + mutation score, E:\Projects\Valheim\Claude\testing\TEST_QUALITY.md). -->
+       How good the tests are: _agent\tools\test-quality.ps1 (coverage + mutation score, <workspace>\Claude\testing\TEST_QUALITY.md). -->
   <PropertyGroup>
     <AssemblyName>ChestDecor.UnitTests</AssemblyName>
     <RootNamespace>ChestDecor.Tests.Unit</RootNamespace>
