@@ -105,3 +105,5 @@ CLAUDE.md
 # SonarQube scanner work files (H30/H31)
 .sonarqube/
 **/tests/_quality/sonar-coverage/
+
+/*-Mod/release/
