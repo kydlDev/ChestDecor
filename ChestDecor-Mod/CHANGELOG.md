@@ -2,6 +2,7 @@
 
 ## 2.0.0
 
+- Tested in game with the full TestLab suite (10 tests): 3 green runs in a row on 2026-11-05, plus the ecosystem run with all 12 KydlDev mods loaded together.
 - Internal port to the KydlDev spec (new folder layout, four features in the KydlCore FeatureRegistry, a Settings tab in the KY hub, TestLab suite). Gameplay and config are unchanged. Network level is now `VersionCheckOnly`: players without the mod still join, but if both sides have it the versions must match.
 - Checked in game on 2026-11-04 (clean start and quit with all mods loaded, no errors from this mod).
 - **Requires KydlCore.** The window look, the input lock, the KY hub and the KY-Items list now come from the KydlCore mod, which has to be installed (the mod manager adds it).
