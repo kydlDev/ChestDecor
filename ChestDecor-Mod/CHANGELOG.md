@@ -6,6 +6,14 @@
 - Changed: all the **Enable** switches are now together in `[General]` and have new names: `Enable mod` (was `EnableAll`) and `Enable Colours`, `Enable Attachments`, `Enable Camera` (each was `Enable` in its own section). The values you had set are taken over; the old entries are removed from your config file.
 - Changed: `[Camera] Camera Look Sensitivity` is now `[Camera] Camera Turn Sensitivity` (the value is taken over).
 
+### Testing
+- Unit tests: 96 passed. Integration tests: 40 passed.
+- Property-based tests (FsCheck, included in the unit tests above): 18 property checks with generated inputs.
+- Coverage of the testable code: 100%. Mutation testing (Stryker): 100% of the mutants are caught by the tests.
+- Performance benchmarks (BenchmarkDotNet): 1.
+- Static analysis (SonarQube): no Medium or High issues.
+- In game with DrakesTestLab: the full suite of 10 tests per run, run 3 times in a row on the release build, all green (the release requirement).
+
 ## 2.0.0
 
 - Tested in game with the full TestLab suite (10 tests): 3 green runs in a row on 2026-11-05, plus the ecosystem run with all 12 KydlDev mods loaded together.
