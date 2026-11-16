@@ -1,21 +1,21 @@
-{
+﻿{
     "name":  "ChestDecor",
     "description":  "ChestDecor 2.0.0 (KydlDev spec port): features run, hub tab, decorator, colours, attachments, edit lock, relog, ownership, editor window",
     "requireMods":  [
                         {
                             "guid":  "com.kydldev.chestdecor",
-                            "minVersion":  "2.0.0"
+                            "minVersion":  "2.0.1"
                         },
                         {
                             "guid":  "com.kydldev.KydlCore",
-                            "minVersion":  "1.0.0"
+                            "minVersion":  "1.1.1"
                         }
                     ],
     "configOverrides":  [
                             {
                                 "guid":  "com.kydldev.chestdecor",
                                 "section":  "General",
-                                "key":  "EnableAll",
+                                "key":  "Enable mod",
                                 "value":  true
                             },
                             {
@@ -44,8 +44,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.chestdecor",
-                                "section":  "Colours",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Colours",
                                 "value":  true
                             },
                             {
@@ -68,8 +68,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.chestdecor",
-                                "section":  "Attachments",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Attachments",
                                 "value":  true
                             },
                             {
@@ -116,8 +116,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.chestdecor",
-                                "section":  "Camera",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Camera",
                                 "value":  true
                             },
                             {
@@ -135,7 +135,7 @@
                             {
                                 "guid":  "com.kydldev.chestdecor",
                                 "section":  "Camera",
-                                "key":  "Camera Look Sensitivity",
+                                "key":  "Camera Turn Sensitivity",
                                 "value":  0.2
                             },
                             {

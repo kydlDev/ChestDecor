@@ -26,7 +26,7 @@ internal static class ContainerHoverPatch
 
     private static void Postfix(Container __instance, ref string __result)
     {
-        if (!ModSettings.AnyEditorPage || !ModSettings.ShowHoverHint.Value) return;     // AnyEditorPage includes EnableAll
+        if (!ModSettings.AnyEditorPage || !ModSettings.ShowHoverHint.Value) return;     // AnyEditorPage includes EnableMod
 
         var player = Player.m_localPlayer;
         if (player == null) return;

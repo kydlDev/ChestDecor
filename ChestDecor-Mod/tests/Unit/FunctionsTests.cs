@@ -1,6 +1,6 @@
 namespace ChestDecor.Tests.Unit;
 
-/// <summary>PROJECT_RULES 11 (user, 2026-10-30): a functionality works only when EnableAll AND its own Enable are on; a switched-off one has no window page.</summary>
+/// <summary>PROJECT_RULES 11 (user, 2026-10-30): a functionality works only when EnableMod AND its own Enable are on; a switched-off one has no window page.</summary>
 [TestFixture]
 public class FunctionsTests
 {

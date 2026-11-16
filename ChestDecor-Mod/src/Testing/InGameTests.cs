@@ -13,9 +13,9 @@ internal static class InGameTests
     /// The player config is bound and the mod is switched on.
     static string Startup_ConfigBound()
     {
-        if (ModSettings.EnableAll == null) return "FAIL: ModSettings.Bind did not run (EnableAll is null)";
-        return ModSettings.On ? "PASS: EnableAll on, customize hotkey " + ModSettings.Hotkey.Value + ", max attachments " + ModSettings.MaxAttachments.Value
-                              : "SKIP: EnableAll is off in the config";
+        if (ModSettings.EnableMod == null) return "FAIL: ModSettings.Bind did not run (EnableMod is null)";
+        return ModSettings.On ? "PASS: EnableMod on, customize hotkey " + ModSettings.Hotkey.Value + ", max attachments " + ModSettings.MaxAttachments.Value
+                              : "SKIP: EnableMod is off in the config";
     }
 
     /// KydlCore (hard dependency, 2.0.0) is loaded: it owns the KY hub (F6) with this mod's settings page, the one UI root and the input lock.

@@ -56,7 +56,7 @@ internal sealed class AttachView
         _search = UiControls.TextField("", 40, s => _act.Search(s));
         var prev = UiControls.Button("<", () => _act.Page(-1));
         var next = UiControls.Button(">", () => _act.Page(1));
-        _pageLabel = UiKit.Label("", UiKit.FontSize, UiKit.Text);
+        _pageLabel = UiKit.TextLabel("", TextRole.Body);
         _pageLabel.style.width = 110; _pageLabel.style.unityTextAlign = TextAnchor.MiddleCenter; _pageLabel.style.flexShrink = 0;
         var bar = new VisualElement(); bar.style.flexDirection = FlexDirection.Row; bar.style.alignItems = Align.Center; bar.style.flexShrink = 0;
         bar.style.marginTop = 8;
@@ -97,8 +97,8 @@ internal sealed class AttachView
         r.Root.style.backgroundColor = UiKit.PanelLight; UiKit.Radius(r.Root, 4); UiKit.Pad(r.Root, 4, 6); r.Root.style.marginTop = 3;
         r.Icon = new VisualElement(); r.Icon.pickingMode = PickingMode.Ignore; r.Icon.style.width = 40; r.Icon.style.height = 40; r.Icon.style.flexShrink = 0;
         r.Icon.style.marginRight = 8;
-        r.Name = UiKit.Label("", UiKit.FontSize, UiKit.Text); r.Name.style.width = 230; r.Name.style.flexShrink = 0; r.Name.style.whiteSpace = WhiteSpace.Normal;
-        r.Cost = UiKit.Label("", UiKit.SmallSize, UiKit.Text); r.Cost.style.flexGrow = 1; r.Cost.style.flexShrink = 1; r.Cost.style.whiteSpace = WhiteSpace.Normal;
+        r.Name = UiKit.TextLabel("", TextRole.Body); r.Name.style.width = 230; r.Name.style.flexShrink = 0; r.Name.style.whiteSpace = WhiteSpace.Normal;
+        r.Cost = UiKit.TextLabel("", TextRole.Small); r.Cost.style.flexGrow = 1; r.Cost.style.flexShrink = 1; r.Cost.style.whiteSpace = WhiteSpace.Normal;
         r.Attach = UiControls.Button(_text("chestdecor_attach"), () => _act.Attach(index), true);
         r.Attach.style.width = 110;
         r.Root.Add(r.Icon); r.Root.Add(r.Name); r.Root.Add(r.Cost); r.Root.Add(r.Attach);
@@ -121,7 +121,7 @@ internal sealed class AttachView
             r.Icon.style.backgroundImage = d.Icon != null ? new StyleBackground(d.Icon) : new StyleBackground(StyleKeyword.None);
             r.Name.text = d.Name ?? "";
             r.Cost.text = d.Cost ?? "";
-            r.Cost.style.color = d.Affordable ? DecorWindowView.Good : DecorWindowView.Bad;
+            UiKit.Tint(r.Cost, d.Affordable ? TextRole.Good : TextRole.Bad);
             DecorWindowView.SetEnabled(r.Attach, d.CanAttach);
             shown++;
         }
@@ -137,6 +137,6 @@ internal sealed class AttachView
     {
         bool full = count >= max;
         _status.text = _text(full ? "chestdecor_full" : "chestdecor_attached_count").Replace("{0}", count.ToString()).Replace("{1}", max.ToString());
-        _status.style.color = full ? UiKit.Gold : UiKit.Text;
+        UiKit.Tint(_status, full ? TextRole.Value : TextRole.Body);
     }
 }

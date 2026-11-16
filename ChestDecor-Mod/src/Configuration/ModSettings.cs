@@ -1,4 +1,4 @@
-using BepInEx.Configuration;
+﻿using BepInEx.Configuration;
 using KydlCore.Common;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ namespace ChestDecor;
 internal static class ModSettings
 {
     // [General]
-    public static ConfigEntry<bool> EnableAll;
+    public static ConfigEntry<bool> EnableMod;
     public static ConfigEntry<KeyboardShortcut> Hotkey;
     public static ConfigEntry<bool> RequireAccess;
     public static ConfigEntry<bool> OnlyPlayerBuilt;
@@ -41,10 +41,10 @@ internal static class ModSettings
     // [DebugLog]
     public static ConfigEntry<bool> DebugLog;
 
-    /// Is the mod switched on ([General] EnableAll)? Off = inert: no hotkey, no hint, no window; decorated chests keep their look.
-    public static bool On { get { return EnableAll == null || EnableAll.Value; } }
+    /// Is the mod switched on ([General] Enable mod)? Off = inert: no hotkey, no hint, no window; decorated chests keep their look.
+    public static bool On { get { return EnableMod == null || EnableMod.Value; } }
 
-    /// Each functionality works only when EnableAll AND its own Enable are on (PROJECT_RULES 11); off = does nothing, its UI is hidden.
+    /// Each functionality works only when EnableMod AND its own Enable are on (PROJECT_RULES 11); off = does nothing, its UI is hidden.
     public static bool ColoursOn { get { return Functions.IsOn(On, ColoursEnable == null || ColoursEnable.Value); } }
     public static bool AttachmentsOn { get { return Functions.IsOn(On, AttachmentsEnable == null || AttachmentsEnable.Value); } }
     public static bool CameraOn { get { return Functions.IsOn(On, FreeCameraEnabled == null || FreeCameraEnabled.Value); } }
@@ -69,12 +69,47 @@ internal static class ModSettings
     public static readonly Tunable<int> AttachRowsPerPage = new Tunable<int>("Window", "AttachRowsPerPage", 8, 4, 20,
         "Rows on one page of the Attach items list (the window scrolls when they do not fit).");
 
+    /// The float the player had in one entry that was renamed (still in the file as an orphan before DropRemoved deletes it); the default when there is none.
+    private static float OldFloat(ConfigFile c, string section, string key, float fallback)
+    {
+        System.Reflection.PropertyInfo orphans = typeof(ConfigFile).GetProperty("OrphanedEntries", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+        var dict = orphans != null ? orphans.GetValue(c, null) as System.Collections.IDictionary : null;
+        var def = new ConfigDefinition(section, key);
+        float v;
+        if (dict != null && dict.Contains(def) && float.TryParse((dict[def] as string ?? "").Trim(), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out v))
+        {
+            return v;
+        }
+
+        return fallback;
+    }
+
+    /// The value the player had in an entry that moved (still in the file as an orphan before DropRemoved deletes it): the first of the
+    /// given (section, key, section, key, ...) pairs that holds a bool; true when there is none.
+    private static bool Old(ConfigFile c, params string[] sectionAndKey)
+    {
+        // OrphanedEntries is not a public member of every BepInEx 5 build (ConfigTools.DropRemoved reaches it the same way)
+        System.Reflection.PropertyInfo orphans = typeof(ConfigFile).GetProperty("OrphanedEntries", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+        var dict = orphans != null ? orphans.GetValue(c, null) as System.Collections.IDictionary : null;
+        for (int i = 0; dict != null && i + 1 < sectionAndKey.Length; i += 2)
+        {
+            var def = new ConfigDefinition(sectionAndKey[i], sectionAndKey[i + 1]);
+            bool b;
+            if (dict.Contains(def) && bool.TryParse((dict[def] as string ?? "").Trim(), out b))
+            {
+                return b;
+            }
+        }
+
+        return true;
+    }
+
     /// Expected outcome: every player entry is bound (returns that check).
     public static bool Bind(ConfigFile c)
     {
         var savedLines = ConfigTools.Capture(c);     // before the first Bind: every Bind saves the file with what BepInEx parsed
 
-        EnableAll = c.Bind("General", "EnableAll", true,
+        EnableMod = c.Bind("General", "Enable mod", Old(c, "General", "EnableAll"),
             "Switches Chest Decor on / off while playing. Off: no hotkey, no hover hint and no window; decorated chests keep their look.");
         Hotkey = c.Bind("General", "Customize Hotkey", new KeyboardShortcut(KeyCode.K),
             "Look at a chest and press this key to open the decorate window (colours, attachments, positions).");
@@ -84,8 +119,8 @@ internal static class ModSettings
             "Only allow decorating chests that players built (not world-generated loot chests).");
         ShowHoverHint = c.Bind("General", "Show Hover Hint", true,
             "Add a '[key] Decorate chest' line to the chest hover text.");
-        ColoursEnable = c.Bind("Colours", "Enable", true,
-            "The Colours page of the decorate window (colour the parts of a chest). Off: the page is hidden. Needs EnableAll to be on as well.");
+        ColoursEnable = c.Bind("General", "Enable Colours", Old(c, "Colours", "Enable"),
+            "The Colours page of the decorate window (colour the parts of a chest). Off: the page is hidden. Needs EnableMod to be on as well.");
         LivePreview = c.Bind("Colours", "Live Preview", false,
             "Apply colour changes to the chest immediately while editing, instead of only when pressing Preview.");
         DefaultMode = c.Bind("Colours", "Default Colour Mode", ColorMode.Tint,
@@ -95,9 +130,9 @@ internal static class ModSettings
             "Most chests use one material and one texture for both wood and metal. When enabled, the texture is analysed and split into two " +
             "colour regions (base / trim) that can be coloured separately. Disable to colour each material as a single part.");
 
-        AttachmentsEnable = c.Bind("Attachments", "Enable", true,
+        AttachmentsEnable = c.Bind("General", "Enable Attachments", Old(c, "Attachments", "Enable"),
             "The Attach items and Position items pages of the decorate window (attach decorations to a chest). Off: the pages are hidden; " +
-            "attachments already on chests stay visible. Needs EnableAll to be on as well.");
+            "attachments already on chests stay visible. Needs EnableMod to be on as well.");
         MaxAttachments = c.Bind("Attachments", "Max Attachments Per Chest", 5,
             new ConfigDescription("How many items can be attached to one chest.", new AcceptableValueRange<int>(1, 8)));
         FreeAttachments = c.Bind("Attachments", "Free Attachments", false,
@@ -120,14 +155,14 @@ internal static class ModSettings
             "The Battle / Protection Idols (Upgrader1..7Weapon / Armor) are always left out. Matches the prefab or item name, ignoring case, " +
             "spaces and symbols. Takes effect immediately.");
 
-        FreeCameraEnabled = c.Bind("Camera", "Enable", true,
+        FreeCameraEnabled = c.Bind("General", "Enable Camera", Old(c, "Camera", "Enable"),
             "While the decorate window is open, let the camera circle the chest (WASD / arrows or hold right mouse to circle, mouse wheel " +
             "or E / Q to zoom, F to go back to the normal camera). Needs no admin rights.");
         FreeCameraMaxDistance = c.Bind("Camera", "Camera Max Distance", 5f,
             new ConfigDescription("Furthest the camera may zoom out from the chest, in metres (closest is always 1 m from it).", new AcceptableValueRange<float>(3f, 10f)));
         FreeCameraSpeed = c.Bind("Camera", "Camera Speed", 3f,
             new ConfigDescription("How fast the keys circle (x 30 degrees per second) and zoom (metres per second); hold Shift for 3x.", new AcceptableValueRange<float>(0.5f, 20f)));
-        FreeCameraLookSpeed = c.Bind("Camera", "Camera Look Sensitivity", 0.2f,
+        FreeCameraLookSpeed = c.Bind("Camera", "Camera Turn Sensitivity", OldFloat(c, "Camera", "Camera Look Sensitivity", 0.2f),
             new ConfigDescription("How far the camera circles per pixel of mouse movement (right mouse drag), in degrees.", new AcceptableValueRange<float>(0.02f, 1f)));
 
         DebugLog = c.Bind("DebugLog", "Enable", false,
@@ -141,10 +176,10 @@ internal static class ModSettings
         ConfigMigration.Move(c, "Camera", "Free Camera", FreeCameraEnabled);
         ConfigTools.DropRemoved(c);                  // the 1.0.0 [Debug] entries are Tunables now, the moved entries are gone from the file
 
-        EnableAll.SettingChanged += (s, e) =>
+        EnableMod.SettingChanged += (s, e) =>
         {
-            ModLog.Info("Config: EnableAll = " + EnableAll.Value + (EnableAll.Value ? ", Chest Decor is on" : ", Chest Decor is inert (no hotkey, hint or window)"));
-            if (!EnableAll.Value) ChestDecorUI.Close();
+            ModLog.Info("Config: Enable mod = " + EnableMod.Value + (EnableMod.Value ? ", Chest Decor is on" : ", Chest Decor is inert (no hotkey, hint or window)"));
+            if (!EnableMod.Value) ChestDecorUI.Close();
         };
         // a functionality switched off while the window is open: close it, it shows the pages again when it is opened next
         ColoursEnable.SettingChanged += (s, e) => { ModLog.Info("Config: [Colours] Enable = " + ColoursEnable.Value); ChestDecorUI.Close(); };
@@ -159,8 +194,8 @@ internal static class ModSettings
         RequireKnown.SettingChanged += (s, e) => ChestDecorUI.SettingsChanged("Require Known Recipe");
         AttachRowsPerPage.SettingChanged += (s, e) => ChestDecorUI.SettingsChanged("AttachRowsPerPage");
 
-        ModLog.Verbose("Config: bound (EnableAll " + EnableAll.Value + ", hotkey " + Hotkey.Value + ", max attachments " + MaxAttachments.Value +
+        ModLog.Verbose("Config: bound (Enable mod " + EnableMod.Value + ", hotkey " + Hotkey.Value + ", max attachments " + MaxAttachments.Value +
                        ", colours " + ColoursEnable.Value + ", attachments " + AttachmentsEnable.Value + ", camera " + FreeCameraEnabled.Value + ", debug log " + DebugLog.Value + ")");
-        return EnableAll != null && Hotkey != null && FreeCameraLookSpeed != null && DebugLog != null;
+        return EnableMod != null && Hotkey != null && FreeCameraLookSpeed != null && DebugLog != null;
     }
 }

@@ -2,7 +2,7 @@ namespace ChestDecor;
 
 /// <summary>
 /// Which functionalities of Chest Decor are on (PROJECT_RULES 11, user 2026-10-30). Pure: no game types, unit tested.
-/// A functionality works only when [General] EnableAll AND its own [Section] Enable are on. Off = does nothing and its UI is hidden.
+/// A functionality works only when [General] Enable mod AND its own [Section] Enable are on. Off = does nothing and its UI is hidden.
 /// Functionalities: Colours (page 0), Attachments (pages 1 "Attach items" and 2 "Position items"), Camera (the orbit camera in the window).
 /// </summary>
 internal static class Functions

@@ -14,7 +14,6 @@ namespace ChestDecor.Ui;
 internal sealed class DecorWindowView
 {
     internal const int TabCount = 3;
-    internal static readonly Color Good = new Color(0.62f, 0.92f, 0.50f, 1f), Bad = new Color(1f, 0.50f, 0.45f, 1f);
 
     internal readonly VisualElement Window;
     internal readonly UiScroll Body;
@@ -40,7 +39,7 @@ internal sealed class DecorWindowView
 
         var top = new VisualElement(); top.style.flexShrink = 0; UiKit.Pad(top, 8, 18);
         top.style.borderBottomWidth = 1; top.style.borderBottomColor = UiKit.Border;
-        var name = UiKit.Label(chestName ?? "", UiKit.FontSize, UiKit.Text);
+        var name = UiKit.TextLabel(chestName ?? "", TextRole.Body);
         name.style.unityTextAlign = TextAnchor.MiddleCenter; name.style.marginBottom = 6;
         top.Add(name);
         _tabs = new VisualElement(); _tabs.style.flexDirection = FlexDirection.Row; _tabs.style.flexShrink = 0;
@@ -81,7 +80,7 @@ internal sealed class DecorWindowView
     // --- small builders shared by the three page views --------------------------------------------------------------------------
     internal static Label Status(string text)
     {
-        var l = UiKit.Label(text, UiKit.FontSize, UiKit.Text);
+        var l = UiKit.TextLabel(text, TextRole.Body);
         l.style.unityTextAlign = TextAnchor.MiddleCenter; l.style.marginTop = 8; l.style.flexShrink = 0;
         return l;
     }
@@ -89,14 +88,14 @@ internal sealed class DecorWindowView
     internal static void SetStatus(Label l, bool dirty, Func<string, string> text)
     {
         l.text = text(dirty ? "chestdecor_unsaved" : "chestdecor_saved");
-        l.style.color = dirty ? UiKit.Gold : UiKit.TextDim;
+        UiKit.Tint(l, dirty ? TextRole.Value : TextRole.Note);
     }
 
     /// A row of equal buttons (Preview / Save / Revert).
     internal static VisualElement Actions(params Button[] buttons)
     {
         var r = new VisualElement(); r.style.flexDirection = FlexDirection.Row; r.style.flexShrink = 0; r.style.marginTop = 12;
-        foreach (var b in buttons) { b.style.flexGrow = 1; b.style.height = 44; b.style.fontSize = UiKit.FontSize; r.Add(b); }
+        foreach (var b in buttons) { b.style.flexGrow = 1; b.style.height = 44; UiKit.Size(b, TextRole.Body); r.Add(b); }
         return r;
     }
 
