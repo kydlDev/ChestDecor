@@ -3,11 +3,12 @@
 ## 2.0.1
 
 - Changed: the menus of this mod take their text sizes, text colours and font from KydlCore. Needs KydlCore 1.1.1 or newer.
-- Changed: all the **Enable** switches are now together in `[General]` and have new names: `Enable mod` (was `EnableAll`) and `Enable Colours`, `Enable Attachments`, `Enable Camera` (each was `Enable` in its own section). The values you had set are taken over; the old entries are removed from your config file.
+- Changed: all the **Enable** switches are now together in `[General]` and have new names: `Enable Mod` (was `EnableAll`) and `Enable Colours`, `Enable Attachments`, `Enable Camera` (each was `Enable` in its own section). The values you had set are taken over; the old entries are removed from your config file.
+- Changed: `Enable Mod` is now the first setting of `[General]`, in the F1 menu and in the F6 hub (your value is taken over).
 - Changed: `[Camera] Camera Look Sensitivity` is now `[Camera] Camera Turn Sensitivity` (the value is taken over).
 
 ### Testing
-- Unit tests: 96 passed. Integration tests: 40 passed.
+- Unit tests: 96 passed. Integration tests: 41 passed.
 - Property-based tests (FsCheck, included in the unit tests above): 18 property checks with generated inputs.
 - Coverage of the testable code: 100%. Mutation testing (Stryker): 100% of the mutants are caught by the tests.
 - Performance benchmarks (BenchmarkDotNet): 1.

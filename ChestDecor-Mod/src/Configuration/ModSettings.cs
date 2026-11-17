@@ -41,7 +41,7 @@ internal static class ModSettings
     // [DebugLog]
     public static ConfigEntry<bool> DebugLog;
 
-    /// Is the mod switched on ([General] Enable mod)? Off = inert: no hotkey, no hint, no window; decorated chests keep their look.
+    /// Is the mod switched on ([General] Enable Mod)? Off = inert: no hotkey, no hint, no window; decorated chests keep their look.
     public static bool On { get { return EnableMod == null || EnableMod.Value; } }
 
     /// Each functionality works only when EnableMod AND its own Enable are on (PROJECT_RULES 11); off = does nothing, its UI is hidden.
@@ -109,8 +109,8 @@ internal static class ModSettings
     {
         var savedLines = ConfigTools.Capture(c);     // before the first Bind: every Bind saves the file with what BepInEx parsed
 
-        EnableMod = c.Bind("General", "Enable mod", Old(c, "General", "EnableAll"),
-            "Switches Chest Decor on / off while playing. Off: no hotkey, no hover hint and no window; decorated chests keep their look.");
+        EnableMod = c.Bind("General", "Enable Mod", Old(c, "General", "Enable mod", "General", "EnableAll"),
+            ConfigOrder.First("Switches Chest Decor on / off while playing. Off: no hotkey, no hover hint and no window; decorated chests keep their look."));
         Hotkey = c.Bind("General", "Customize Hotkey", new KeyboardShortcut(KeyCode.K),
             "Look at a chest and press this key to open the decorate window (colours, attachments, positions).");
         RequireAccess = c.Bind("General", "Require Chest Access", true,
@@ -178,7 +178,7 @@ internal static class ModSettings
 
         EnableMod.SettingChanged += (s, e) =>
         {
-            ModLog.Info("Config: Enable mod = " + EnableMod.Value + (EnableMod.Value ? ", Chest Decor is on" : ", Chest Decor is inert (no hotkey, hint or window)"));
+            ModLog.Info("Config: Enable Mod = " + EnableMod.Value + (EnableMod.Value ? ", Chest Decor is on" : ", Chest Decor is inert (no hotkey, hint or window)"));
             if (!EnableMod.Value) ChestDecorUI.Close();
         };
         // a functionality switched off while the window is open: close it, it shows the pages again when it is opened next
@@ -194,7 +194,7 @@ internal static class ModSettings
         RequireKnown.SettingChanged += (s, e) => ChestDecorUI.SettingsChanged("Require Known Recipe");
         AttachRowsPerPage.SettingChanged += (s, e) => ChestDecorUI.SettingsChanged("AttachRowsPerPage");
 
-        ModLog.Verbose("Config: bound (Enable mod " + EnableMod.Value + ", hotkey " + Hotkey.Value + ", max attachments " + MaxAttachments.Value +
+        ModLog.Verbose("Config: bound (Enable Mod " + EnableMod.Value + ", hotkey " + Hotkey.Value + ", max attachments " + MaxAttachments.Value +
                        ", colours " + ColoursEnable.Value + ", attachments " + AttachmentsEnable.Value + ", camera " + FreeCameraEnabled.Value + ", debug log " + DebugLog.Value + ")");
         return EnableMod != null && Hotkey != null && FreeCameraLookSpeed != null && DebugLog != null;
     }
