@@ -1,4 +1,4 @@
-﻿# ChestDecor (Valheim / BepInEx / Jotunn)
+# ChestDecor (Valheim / BepInEx / Jotunn)
 
 Decorate your chests. Colour them, attach trophies, food, produce, weapons, furniture and more, then move, rotate and
 resize every attached item. Everything is cosmetic and is saved on the chest itself.
@@ -293,3 +293,11 @@ Colours (and each part's mode) and attachments are stored in the chest's ZDO (ke
 `ChestDecor_Attach`), so they save and sync automatically. The editor lock uses `ChestDecor_EditorId`, `ChestDecor_EditorName`
 and `ChestDecor_EditorBeat`. Players without the mod can't open the window, so they can't edit (or hold) a chest.
 The mod is cosmetic only (`NetworkCompatibility: VersionCheckOnly`, patch-strict): players without it can join and just see normal chests; when both the server and a player have it, the versions must match exactly.
+
+---
+
+![KydlDev](https://raw.githubusercontent.com/kydlDev/.github/main/branding/KydlDev-banner-960x240.png)
+
+## Get help and stay in touch
+Questions, bug reports, ideas or mod requests? Come say hi in the **KydlDev Discord**: **https://discord.gg/tX2CcTNC4W**
+Everyone is welcome, and it is the quickest way to reach me. Source code and issues: https://github.com/kydlDev
