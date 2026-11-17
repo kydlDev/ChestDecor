@@ -33,15 +33,15 @@ internal static class IgnoredIngredients
         var tokens = Tokens();
         if (tokens.Length == 0) return false;
 
-        var prefab = Normalize(req.m_resItem.gameObject != null ? req.m_resItem.gameObject.name : null);
+        var prefab = AttachCatalog.Normalize(req.m_resItem.gameObject != null ? req.m_resItem.gameObject.name : null);
         string shared = null;
         string sharedBare = null;
         try
         {
             var data = req.m_resItem.m_itemData;
             var key = data != null && data.m_shared != null ? data.m_shared.m_name : null;
-            shared = Normalize(key);
-            sharedBare = Normalize(StripKey(key));   // "$item_battleidol" -> "battleidol"
+            shared = AttachCatalog.Normalize(key);
+            sharedBare = AttachCatalog.Normalize(StripKey(key));   // "$item_battleidol" -> "battleidol"
         }
         catch { /* item data not ready: the prefab name has to do */ }
 
@@ -95,7 +95,7 @@ internal static class IgnoredIngredients
         var raw = ModSettings.IgnoredIngredientsSetting != null ? ModSettings.IgnoredIngredientsSetting.Value : "";
         foreach (var part in (raw ?? "").Split(','))
         {
-            var token = Normalize(part);
+            var token = AttachCatalog.Normalize(part);
             if (token.Length > 0 && !list.Contains(token)) list.Add(token);
         }
 
@@ -103,13 +103,4 @@ internal static class IgnoredIngredients
         return _tokens;
     }
 
-    private static string Normalize(string text)
-    {
-        if (string.IsNullOrEmpty(text)) return "";
-
-        var sb = new System.Text.StringBuilder(text.Length);
-        foreach (var c in text)
-            if (char.IsLetterOrDigit(c)) sb.Append(char.ToLowerInvariant(c));
-        return sb.ToString();
-    }
 }

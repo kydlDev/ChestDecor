@@ -106,12 +106,12 @@ internal static class LightSources
         if (_wikiTokens == null)
         {
             var tokens = new HashSet<string>();
-            foreach (var name in WikiNames) tokens.Add(Normalize(name));
+            foreach (var name in WikiNames) tokens.Add(AttachCatalog.Normalize(name));
             _wikiTokens = tokens;
         }
 
-        var prefab = Normalize(prefabName);
-        var shown = Normalize(shownName);
+        var prefab = AttachCatalog.Normalize(prefabName);
+        var shown = AttachCatalog.Normalize(shownName);
 
         if (shown.Length > 0 && _wikiTokens.Contains(shown)) return true;
         if (prefab.Length > 0 && _wikiTokens.Contains(prefab)) return true;
@@ -121,13 +121,4 @@ internal static class LightSources
         return false;
     }
 
-    private static string Normalize(string text)
-    {
-        if (string.IsNullOrEmpty(text)) return "";
-
-        var sb = new System.Text.StringBuilder(text.Length);
-        foreach (var c in text)
-            if (char.IsLetterOrDigit(c)) sb.Append(char.ToLowerInvariant(c));
-        return sb.ToString();
-    }
 }
